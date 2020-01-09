@@ -10,3 +10,22 @@ from sudoku.solve import solve_sudoku
 
 hardest_sudoku = get_hardest_sudoku()
 solution = solve_sudoku(hardest_sudoku)
+
+keys = hardest_sudoku.empty_cells()
+
+# Using the optimized method
+before = time.time()
+hardest_sudoku.opt_possible_values_for_multiple_cells(keys)
+after = time.time()
+
+opt_time = after-before
+
+# Using list compact
+before = time.time()
+[ hardest_sudoku.possible_values(key) for key in keys ]
+after = time.time()
+list_time = after-before
+
+opt_time
+list_tim
+# bravo
