@@ -141,15 +141,19 @@ class SudokuGrid():
         :param keys: List of 2-tuples for indexes
         :returns: List of lists of possible values for provided cells (1-9).
         '''
-        result_list=[]
+        rows = [set(self._get_line(i).flat) for i in range(9)]
+        columns = [set(self._get_column(j).flat) for j in range(9)]
+        squares = [set(self._get_square(i, j).flat) for i in range(3) for j in range(3)]
+
+
         i_list=[i for (i,j) in keys]
         j_list=[j for (i,j) in keys]
         square_index=[floor(i/3)*3+floor(j/3) for (i,j) in keys]
-        rows = [set(self._get_line(i).flat) for i in range(9)]
-        columns = [set(self._get_column(j).flat) for j in range(9)]
-        squares=[set(self._get_square(i, j).flat) for i in range(3) for j in range(3)]
+
         candidates = set([ i + 1 for i in range(9) ])
+        result_list=[]
         for i in range(len(keys)):
             result_list.append(candidates.difference(set().union(rows[i_list[i]], columns[j_list[i]], squares[square_index[i]])))
+
         return result_list
          
