@@ -27,5 +27,5 @@ after = time.time()
 list_time = after-before
 
 opt_time
-list_tim
+list_time
 # bravo
