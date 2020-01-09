@@ -15,7 +15,7 @@ keys = hardest_sudoku.empty_cells()
 
 # Using the optimized method
 before = time.time()
-hardest_sudoku.opt_possible_values_for_multiple_cells(keys)
+hardest_sudoku.possible_values_vectorized(keys)
 after = time.time()
 
 opt_time = after-before
