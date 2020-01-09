@@ -11,9 +11,9 @@ def solve_sudoku(sudoku):
     :returns: A :class:`SudokuGrid` object with solved sudoku.
     '''
     s = deepcopy(sudoku)
-    return solve_recursive(s)
+    return _solve_recursive(s)
 
-def solve_recursive(sudoku):
+def _solve_recursive(sudoku):
     '''
     Solve a sudoku in-place using a recursive algorithm
 
