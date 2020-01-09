@@ -16,6 +16,18 @@ class SudokuGrid():
         # Check for duplicates
         return len(set(vector_nz.flat)) == len(vector_nz.flat)
 
+    def _get_line(self, i):
+        return self._grid[i,:]
+    
+    def _get_column(self, j):
+        return self._grid[:,j]
+
+    def _get_square(self, i, j):
+        i_range = range(i*3, (i+1)*3)
+        j_range = range(j*3, (j+1)*3)
+        square_range = np.ix_(i_range, j_range)
+        return self._grid[square_range]
+
     def __init__(self, data):
         self._grid = np.matrix(data)
         if not self._is_valid():
