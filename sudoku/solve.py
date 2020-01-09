@@ -4,10 +4,22 @@
 from copy import deepcopy
 
 def solve_sudoku(sudoku):
+    '''
+    Solve a sudoku
+
+    :param sudoku: A :class:`SudokuGrid` to be solved
+    :returns: A :class:`SudokuGrid` object with solved sudoku.
+    '''
     s = deepcopy(sudoku)
     return solve_recursive(s)
 
 def solve_recursive(sudoku):
+    '''
+    Solve a sudoku in-place using a recursive algorithm
+
+    :param sudoku: A :class:`SudokuGrid` to be solved, will be modified.
+    :returns: A :class:`SudokuGrid` object with solved sudoku.
+    '''
     try :
         cells=sudoku.empty_cells()
         ## Naive way is to take the first empty cell available
