@@ -77,6 +77,9 @@ class SudokuGrid():
             raise ValueError("Invalid value for sudoku")
         self._grid[key] = value
         return self
+    
+    def __eq__(self, other):
+        return (self._grid == other._grid).all()
 
     def _is_valid(self):
         '''
@@ -86,19 +89,16 @@ class SudokuGrid():
         '''
         # Check rows
         for i in range(9):
-            if not SudokuGrid._valid_vector(self._grid[i,:]):
+            if not SudokuGrid._valid_vector(self._get_line(i)):
                 return False
         # Check columns
         for j in range(9):
-            if not SudokuGrid._valid_vector(self._grid[:,j]):
+            if not SudokuGrid._valid_vector(self._get_column(j)):
                 return False
         # Check squares
         for i in range(3):
             for j in range(3):
-                i_range = range(i*3, (i+1)*3)
-                j_range = range(j*3, (j+1)*3)
-                square_range = np.ix_(i_range, j_range)
-                if not SudokuGrid._valid_vector(self._grid[square_range]):
+                if not SudokuGrid._valid_vector(self._get_square(i,j)):
                     return False
         return True
 
@@ -124,13 +124,9 @@ class SudokuGrid():
         '''
         i, j = key
         # Ranges for containing square
-        i_range = range(floor(i/3)*3, (floor(i/3)+1)*3)
-        j_range = range(floor(j/3)*3, (floor(j/3)+1)*3)
-        square_range = np.ix_(i_range, j_range)
-
-        row = set(self._grid[i,:].flat)
-        column = set(self._grid[:,j].flat)
-        square = set(self._grid[square_range].flat)
+        row = set(self._get_line(i).flat)
+        column = set(self._get_column(j).flat)
+        square = set(self._get_square(floor(i/3),floor(j/3)).flat)
 
         candidates = set([ i + 1 for i in range(9) ])
         return candidates.difference(set().union(row, column, square))
@@ -149,9 +145,9 @@ class SudokuGrid():
         i_list=[i for (i,j) in keys]
         j_list=[j for (i,j) in keys]
         square_index=[floor(i/3)*3+floor(j/3) for (i,j) in keys]
-        rows = [set(self._grid[i,:].flat) for i in range(9)]
-        columns = [set(self._grid[:,j].flat) for j in range(9)]
-        squares=[set(self._grid[(i*3):((i+1)*3),(j*3):((j+1)*3)].flat) for i in range(3) for j in range(3)]
+        rows = [set(self._get_line(i).flat) for i in range(9)]
+        columns = [set(self._get_column(j).flat) for j in range(9)]
+        squares=[set(self._get_square(i, j).flat) for i in range(3) for j in range(3)]
         candidates = set([ i + 1 for i in range(9) ])
         for i in range(len(keys)):
             result_list.append(candidates.difference(set().union(rows[i_list[i]], columns[j_list[i]], squares[square_index[i]])))
