@@ -8,7 +8,5 @@ from sudoku_examples import get_hardest_sudoku, get_sudoku, get_sudoku_solution
 from sudoku.sgrid import SudokuGrid
 from sudoku.solve import solve_sudoku
 
-
 hardest_sudoku = get_hardest_sudoku()
 solution = solve_sudoku(hardest_sudoku)
-
