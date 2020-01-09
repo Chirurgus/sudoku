@@ -33,9 +33,6 @@ class SudokuGrid():
         self._grid[key] = value
         return self
 
-    def is_complete(self):
-        return len(self.empty_cells()) == 0
-
     def _is_valid(self):
         # Rows
         for i in range(9):
@@ -76,4 +73,17 @@ class SudokuGrid():
 
         candidates = set([ i + 1 for i in range(9) ])
         return candidates.difference(set().union(row, column, square))
+    
+    def opt_possible_values_for_multiple_cells(self, keys):
+        result_list=[]
+        i_list=[i for (i,j) in keys]
+        j_list=[j for (i,j) in keys]
+        square_index=[floor(i/3)*3+floor(j/3) for (i,j) in keys]
+        rows = [set(self._grid[i,:].flat) for i in range(9)]
+        columns = [set(self._grid[:,j].flat) for j in range(9)]
+        squares=[set(self._grid[(i*3):((i+1)*3),(j*3):((j+1)*3)].flat) for i in range(3) for j in range(3)]
+        candidates = set([ i + 1 for i in range(9) ])
+        for i in range(len(keys)):
+            result_list.append(candidates.difference(set().union(rows[i_list[i]], columns[j_list[i]], squares[square_index[i]])))
+        return result_list
          
