@@ -66,7 +66,7 @@ class SudokuGrid():
         if not self._is_valid():
             raise ValueError("Invalid sudoku matrix passed to constructor")
     
-    def __str__(self):
+    def __repr__(self):
         return str(self._grid)
 
     def __getitem__(self, key):
