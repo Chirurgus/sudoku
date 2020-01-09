@@ -131,7 +131,7 @@ class SudokuGrid():
         candidates = set([ i + 1 for i in range(9) ])
         return candidates.difference(set().union(row, column, square))
     
-    def opt_possible_values_for_multiple_cells(self, keys):
+    def possible_values_vectorized(self, keys):
         '''
         List of possible values for multiple cells (optimized)
 
