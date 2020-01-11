@@ -4,7 +4,7 @@
 import numpy as np
 from math import floor
 
-class SudokuGrid():
+class SudokuGrid:
     '''
     Sudoku grid
 
@@ -101,6 +101,14 @@ class SudokuGrid():
                 if not SudokuGrid._valid_vector(self._get_square(i,j)):
                     return False
         return True
+
+    def is_complete(self):
+        '''
+        Check if the sudoku is completed
+
+        :returns bool: True if sudoku is filled. False otherwise.
+        '''
+        return len(self.empty_cells()) == 0
 
     def empty_cells(self):
         '''
