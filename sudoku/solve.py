@@ -23,8 +23,8 @@ def _solve_recursive(sudoku):
     try :
         cells=sudoku.empty_cells()
         possible_values=sudoku.possible_values_vectorized(cells)
-        # Choose the cell that has the least possible values
         npv=[len(tpl) for tpl in possible_values]
+        # Choose the cell that has the least possible values
         cell=cells[npv.index(min(npv))]
     except Exception:
         return sudoku
